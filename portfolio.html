@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Khronos - CS Enthusiast & AI Explorer. Building neural networks and intelligent systems from scratch.">
+    <meta name="theme-color" content="#000000">
+    <title>Khronos | CS Enthusiast & AI Explorer</title>
+    
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Wide:wght@400;600;700;800&family=Playfair+Display:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Fallback critical CSS for above-the-fold content -->
+    <style>
+        /* Critical CSS - Hero content visible before styles load */
+        .hero { min-height: 100vh; }
+        .hero h1 { font-size: 3rem; }
+    </style>
+</head>
+<body>
+    <!-- Particle Background Container -->
+    <div id="particles" role="presentation" aria-hidden="true"></div>
+    
+    <!-- Navigation -->
+    <nav aria-label="Main navigation" role="navigation">
+        <a href="#hero" class="logo" aria-label="Khronos Home">KHRONOS</a>
+        <div class="nav-links">
+            <a href="#about" aria-label="Navigate to About section">About</a>
+            <a href="#journey" aria-label="Navigate to Journey section">Journey</a>
+            <a href="#skills" aria-label="Navigate to Skills section">Skills</a>
+            <a href="#research" aria-label="Navigate to Research section">Research</a>
+            <a href="#contact" aria-label="Navigate to Contact section">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero" aria-labelledby="hero-heading">
+        <div class="hero-bg" style="--x: 20%; --y: 40%;"></div>
+        <div class="glow-orb" style="top: 10%; left: 10%;"></div>
+        <div class="glow-orb" style="bottom: 15%; right: 8%;"></div>
+        
+        <div class="hero-content">
+            <h1 id="hero-heading">KHRONOS</h1>
+            <h2>Artificial Intelligence</h2>
+            <p>Building neural networks & intelligent systems from scratch.</p>
+            <div class="hero-actions">
+                <a href="#contact" class="cta-button">
+                    View My Work
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section" aria-labelledby="about-heading">
+        <h2 id="about-heading" class="section-title">About Me</h2>
+        <div class="about-content about-text">
+            <p>I'm a self-taught computer science enthusiast who learned by doing, not by sitting in lectures. My approach: read the documentation, break things, and rebuild them better.</p>
+            <blockquote class="about-quote">
+                "Certificates don't teach you. Curiosity does."
+            </blockquote>
+        </div>
+    </section>
+
+    <!-- Journey Section -->
+    <section id="journey" class="journey-section" aria-labelledby="journey-heading">
+        <h2 id="journey-heading" class="section-title">My Journey</h2>
+        <div class="skills-grid">
+            <article class="skill-item">
+                <h3>Self-Taught Foundation</h3>
+                <p>Python (6 months) → Full CS curriculum → OS kernel development (C, Rust)</p>
+            </article>
+            <article class="skill-item">
+                <h3>Machine Learning</h3>
+                <p>fast.ai → PyTorch → Built CNNs, RNNs, and Transformers from scratch</p>
+            </article>
+            <article class="skill-item">
+                <h3>Open Source</h3>
+                <p>3+ GitHub contributions, AI utilities library maintainer</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section" aria-labelledby="skills-heading">
+        <h2 id="skills-heading" class="section-title">Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-item">
+                <h3>Deep Learning</h3>
+                <p>PyTorch • TensorFlow • JAX • Transformer Architectures</p>
+            </div>
+            <div class="skill-item">
+                <h3>NLP</h3>
+                <p>LLMs • RAG Systems • Model Fine-tuning</p>
+            </div>
+            <div class="skill-item">
+                <h3>Computer Vision</h3>
+                <p>Detection • Segmentation • 3D Vision</p>
+            </div>
+            <div class="skill-item">
+                <h3>Systems Programming</h3>
+                <p>Python • C++ • Rust • Linux Kernel</p>
+            </div>
+            <div class="skill-item">
+                <h3>MLOps</h3>
+                <p>Docker • Kubernetes • CI/CD Pipelines</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Section -->
+    <section id="research" class="research-section" aria-labelledby="research-heading">
+        <h2 id="research-heading" class="section-title">Research Areas</h2>
+        <div class="skills-grid">
+            <article class="skill-item">
+                <h3>Efficient Transformers</h3>
+                <p>Exploring sparse attention mechanisms and hybrid architectures for improved performance.</p>
+            </article>
+            <article class="skill-item">
+                <h3>Reinforcement Learning</h3>
+                <p>Developing RL algorithms for autonomous decision-making systems.</p>
+            </article>
+            <article class="skill-item">
+                <h3>Multi-modal Learning</h3>
+                <p>Researching cross-modal learning to bridge text, image, and audio processing.</p>
+            </article>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section" aria-labelledby="contact-heading">
+        <h2 id="contact-heading" class="section-title">Let's Connect</h2>
+        <div class="contact-content">
+            <p>Email me at:</p>
+            <address class="contact-email">
+                <a href="mailto:khronos@enthusiast.dev" aria-label="Email khronos@enthusiast.dev">
+                    khronos@enthusiast.dev
+                </a>
+            </address>
+            <a href="mailto:khronos@enthusiast.dev" class="cta-button">
+                Start a Conversation
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer role="contentinfo">
+        <p>&copy; 2026 Khronos. Self-taught & self-driven.</p>
+    </footer>
+
+    <!-- External JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>

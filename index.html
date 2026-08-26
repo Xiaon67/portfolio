@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ============================================================
+         KHRONOSAION — PERSONAL INTRODUCTION SITE
+         ------------------------------------------------------------
+         EDITING GUIDE
+         · All written copy lives directly in this file, organized
+           by clearly labeled <section> blocks.
+         · Experiment cards + footer links live in script.js (CONFIG).
+         · Colors, spacing, typography live in style.css (:root).
+         · Full instructions: README.md
+         ============================================================ -->
+    <title>KhronosAion — Exploring intelligence, one experiment at a time.</title>
+    <meta name="description" content="KhronosAion is an independent exploration of artificial intelligence, software, and ideas. Self-directed learning, recorded honestly.">
+    <meta name="theme-color" content="#FAFAF8">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="KhronosAion">
+    <meta property="og:description" content="Exploring intelligence, one experiment at a time.">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon (inline SVG, no extra request) -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23171717'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%23FAFAF8' stroke-width='1.8'/%3E%3Ccircle cx='16' cy='16' r='2.2' fill='%23FAFAF8'/%3E%3C/svg%3E">
+
+    <!-- Typography: Inter with system fallbacks -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Cursor glow (desktop only, added behaviorally by script.js) -->
+    <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+
+    <!-- ===================== NAVIGATION ===================== -->
+    <header class="nav" id="site-nav">
+        <nav class="nav-inner" aria-label="Main navigation">
+            <a class="nav-brand" href="#hero">KhronosAion</a>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a class="nav-link" href="#introduction">Introduction</a></li>
+                <li><a class="nav-link" href="#journey">Journey</a></li>
+                <li><a class="nav-link" href="#lab">Projects</a></li>
+                <li><a class="nav-link" href="#philosophy">Philosophy</a></li>
+                <li><a class="nav-link" href="#contact">Contact</a></li>
+                <li><button class="admin-nav-btn" id="admin-auth-btn" aria-label="Admin Access">Admin Login</button></li>
+            </ul>
+
+            <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+                <span class="nav-toggle-bar"></span>
+                <span class="nav-toggle-bar"></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobile-menu" hidden>
+        <nav aria-label="Mobile navigation">
+            <ul>
+                <li><a class="mobile-link" href="#introduction">Introduction</a></li>
+                <li><a class="mobile-link" href="#journey">Journey</a></li>
+                <li><a class="mobile-link" href="#lab">Projects</a></li>
+                <li><a class="mobile-link" href="#philosophy">Philosophy</a></li>
+                <li><a class="mobile-link" href="#contact">Contact</a></li>
+                <li><button class="mobile-link admin-mobile-link" id="admin-auth-btn-mobile">Admin Login</button></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Admin Status Banner (only visible when logged in) -->
+    <aside class="admin-bar" id="admin-bar" hidden>
+        <div class="container admin-bar-inner">
+            <div class="admin-bar-user">
+                <span class="admin-badge">Admin Mode</span>
+                <span class="admin-user-email" id="admin-email-display"></span>
+            </div>
+            <div class="admin-bar-actions">
+                <button class="btn btn-sm btn-primary" id="add-project-btn">+ Add Project</button>
+                <button class="btn btn-sm btn-secondary" id="admin-settings-btn">Admin Config</button>
+                <button class="btn btn-sm btn-ghost" id="admin-logout-btn">Log Out</button>
+            </div>
+        </div>
+    </aside>
+
+    <main id="main">
+
+        <!-- ===================== HERO ===================== -->
+        <section class="hero" id="hero" aria-labelledby="hero-title">
+            <div class="hero-glow" aria-hidden="true"></div>
+
+            <div class="container hero-layout">
+                <div class="hero-copy">
+                    <h1 class="hero-title" id="hero-title">KhronosAion</h1>
+                    <p class="hero-subtitle">Exploring intelligence, one experiment at a time.</p>
+
+                    <p class="hero-lede">
+                        I&rsquo;m an independent AI enthusiast exploring artificial intelligence,
+                        software, automation, and the possibilities that emerge when curiosity
+                        turns into experimentation.
+                    </p>
+                    <p class="hero-note">
+                        I don&rsquo;t come from a traditional computer-science background. No CS degree,
+                        no collection of certificates. Most of what I know has come from curiosity,
+                        experimentation, failure, rebuilding, and an unwillingness to stop asking
+                        <em>&ldquo;what if?&rdquo;</em>
+                    </p>
+
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#journey">Explore my journey</a>
+                        <a class="btn btn-secondary" href="#explore">What I&rsquo;m exploring</a>
+                    </div>
+                </div>
+
+                <!-- Abstract "intelligence field": curiosity at the center,
+                     slowly orbiting concepts. Pure CSS transforms. -->
+                <div class="field-wrap" aria-hidden="true">
+                    <div class="field">
+                        <span class="field-ring field-ring-1"></span>
+                        <span class="field-ring field-ring-2"></span>
+                        <span class="field-ring field-ring-3"></span>
+
+                        <div class="field-core">
+                            <span class="field-core-orb"></span>
+                            <span class="field-core-label">Curiosity</span>
+                        </div>
+
+                        <!-- Orbiting chips: rotation on the wrapper, counter-rotation
+                             on the chip keeps every label upright. -->
+                        <div class="orbit o1"><span class="chip chip-blue"><i></i>AI</span></div>
+                        <div class="orbit o2"><span class="chip chip-violet"><i></i>Code</span></div>
+                        <div class="orbit o3"><span class="chip chip-orange"><i></i>Ideas</span></div>
+                        <div class="orbit o4"><span class="chip chip-green"><i></i>Experiments</span></div>
+                        <div class="orbit o5"><span class="chip chip-blue"><i></i>Systems</span></div>
+                        <div class="orbit o6"><span class="chip chip-violet"><i></i>Creativity</span></div>
+                        <div class="orbit o7"><span class="chip chip-orange"><i></i>Learning</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== INTRODUCTION ===================== -->
+        <section class="section intro" id="introduction" aria-labelledby="intro-title">
+            <div class="container narrow">
+                <p class="eyebrow" data-reveal>Introduction</p>
+                <h2 class="display" id="intro-title" data-reveal>Not a traditional path.</h2>
+
+                <div class="intro-copy">
+                    <p class="lede" data-reveal>
+                        I&rsquo;m KhronosAion &mdash; an independent developer exploring artificial intelligence,
+                        systems, and modern software. There isn&rsquo;t a conventional computer-science story behind
+                        my work: no formal CS degree, no list of certifications, and no pre-paved roadmap.
+                    </p>
+                    <p class="lede" data-reveal>Instead, there is curiosity.</p>
+
+                    <ul class="curiosity-list">
+                        <li data-reveal>The curiosity to understand how things work.</li>
+                        <li data-reveal>The curiosity to build something just because it might be possible.</li>
+                        <li data-reveal>The curiosity to take an idea apart, rebuild it, break it again, and learn something from the process.</li>
+                    </ul>
+
+                    <p class="statement" data-reveal>
+                        This website is not meant to prove expertise.<br>
+                        It is a record of exploration.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== JOURNEY ===================== -->
+        <section class="section journey" id="journey" aria-labelledby="journey-title">
+            <div class="container">
+                <p class="eyebrow" data-reveal>Journey</p>
+                <h2 class="display" id="journey-title" data-reveal>A journey built by curiosity.</h2>
+
+                <ol class="timeline">
+                    <li class="timeline-item" data-reveal>
+                        <div class="timeline-marker"></div>
+                        <h3>Curiosity</h3>
+                        <p>Started with questions about technology and how intelligent systems actually work.</p>
+                    </li>
+                    <li class="timeline-item" data-reveal>
+                        <div class="timeline-marker"></div>
+                        <h3>Experimentation</h3>
+                        <p>Started building small projects, scripts, interfaces, automation systems, and experiments.</p>
+                    </li>
+                    <li class="timeline-item" data-reveal>
+                        <div class="timeline-marker"></div>
+                        <h3>Artificial Intelligence</h3>
+                        <p>Began exploring modern AI models, local AI, APIs, agents, memory systems, and AI-assisted development.</p>
+                    </li>
+                    <li class="timeline-item" data-reveal>
+                        <div class="timeline-marker"></div>
+                        <h3>Building</h3>
+                        <p>Moved from simply using technology toward creating systems and tools.</p>
+                    </li>
+                    <li class="timeline-item is-current" data-reveal>
+                        <div class="timeline-marker"></div>
+                        <h3>Today</h3>
+                        <p>Still learning. Still experimenting. Still asking questions.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- ===================== WHAT I EXPLORE ===================== -->
+        <section class="section explore" id="explore" aria-labelledby="explore-title">
+            <div class="container">
+                <p class="eyebrow" data-reveal>Focus areas</p>
+                <h2 class="display" id="explore-title" data-reveal>What I explore</h2>
+
+                <div class="card-grid">
+                    <article class="card" data-reveal>
+                        <span class="card-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="2.4"/><circle cx="5" cy="6" r="1.7"/><circle cx="19" cy="6" r="1.7"/><circle cx="5" cy="18" r="1.7"/><circle cx="19" cy="18" r="1.7"/><path d="M6.4 7.1 10 10.3M17.6 7.1 14 10.3M6.4 16.9 10 13.7M17.6 16.9 14 13.7"/></svg>
+                        </span>
+                        <h3>Artificial Intelligence</h3>
+                        <p>Exploring modern AI models, reasoning systems, local models, AI agents, memory, and the rapidly evolving AI ecosystem.</p>
+                    </article>
+
+                    <article class="card" data-reveal>
+                        <span class="card-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 7.5 4 12l4.5 4.5M15.5 7.5 20 12l-4.5 4.5M13.2 5.5l-2.4 13"/></svg>
+                        </span>
+                        <h3>Programming</h3>
+                        <p>Learning through practical experimentation and building real projects rather than following a traditional academic path.</p>
+                    </article>
+
+                    <article class="card" data-reveal>
+                        <span class="card-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9a8 8 0 0 1 14.2-3M20 15a8 8 0 0 1-14.2 3"/><path d="M18.5 2.5V6H15M5.5 21.5V18H9"/></svg>
+                        </span>
+                        <h3>Automation</h3>
+                        <p>Interested in systems that can reduce repetitive work and allow software to accomplish increasingly complex tasks.</p>
+                    </article>
+
+                    <article class="card" data-reveal>
+                        <span class="card-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="12" r="5.5"/><circle cx="15" cy="12" r="5.5"/></svg>
+                        </span>
+                        <h3>Human + AI</h3>
+                        <p>Exploring what becomes possible when human curiosity and machine intelligence work together.</p>
+                    </article>
+
+                    <article class="card" data-reveal>
+                        <span class="card-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3.5" y="3.5" width="11" height="11" rx="3"/><circle cx="15.5" cy="15.5" r="5"/></svg>
+                        </span>
+                        <h3>Creative Technology</h3>
+                        <p>Experimenting with interfaces, visual design, websites, simulations, and unconventional ideas.</p>
+                    </article>
+
+                    <article class="card" data-reveal>
+                        <span class="card-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4 3.5 8.5 12 13l8.5-4.5L12 4Z"/><path d="M3.5 13.5 12 18l8.5-4.5"/></svg>
+                        </span>
+                        <h3>Learning</h3>
+                        <p>Treating every project as an experiment and every failure as information.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== THE LAB ===================== -->
+        <!-- Cards are rendered by script.js from the `experiments` array
+             in the CONFIG block, so entries are easy to replace later. -->
+        <section class="section lab" id="lab" aria-labelledby="lab-title">
+            <div class="container">
+                <p class="eyebrow" data-reveal>The Lab</p>
+                <h2 class="display" id="lab-title" data-reveal>The Lab</h2>
+                <p class="section-subtitle" data-reveal>Ideas are more interesting when they become experiments.</p>
+
+                <div class="lab-grid" id="lab-grid" data-reveal-grid>
+                    <noscript>
+                        <p class="noscript-note">Enable JavaScript to see current experiments, or view the page source to edit them.</p>
+                    </noscript>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== NO CERTIFICATE REQUIRED ===================== -->
+        <section class="section cert" id="certificate" aria-labelledby="cert-title">
+            <div class="container narrow">
+                <h2 class="display" id="cert-title" data-reveal>Curiosity doesn&rsquo;t require a&nbsp;certificate.</h2>
+
+                <div class="cert-copy">
+                    <p class="lede" data-reveal>
+                        Formal education has its place. So do certificates, degrees, and structured
+                        learning. But some of the most interesting questions begin before there is
+                        a curriculum for them.
+                    </p>
+                    <p class="lede" data-reveal>
+                        My path has been largely self-directed: learning by building, breaking things,
+                        researching, experimenting, and trying again.
+                    </p>
+                    <p class="statement" data-reveal>
+                        I&rsquo;m not presenting myself as an expert.<br>
+                        I&rsquo;m presenting myself as someone who genuinely enjoys learning how things work.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== CURRENTLY EXPLORING ===================== -->
+        <section class="section exploring" id="exploring" aria-labelledby="exploring-title">
+            <div class="container">
+                <h2 class="display-sm" id="exploring-title" data-reveal>Currently exploring</h2>
+            </div>
+            <div class="marquee" data-marquee>
+                <div class="marquee-track">
+                    <!-- First copy is announced to screen readers; the duplicate below is hidden. -->
+                    <ul class="tag-row">
+                        <li class="tag">AI agents</li>
+                        <li class="tag">Local AI</li>
+                        <li class="tag">Reasoning models</li>
+                        <li class="tag">Coding with AI</li>
+                        <li class="tag">Automation</li>
+                        <li class="tag">Human-AI interaction</li>
+                        <li class="tag">Memory systems</li>
+                        <li class="tag">Generative interfaces</li>
+                        <li class="tag">Open-source AI</li>
+                        <li class="tag">Computational creativity</li>
+                    </ul>
+                    <ul class="tag-row" aria-hidden="true">
+                        <li class="tag">AI agents</li>
+                        <li class="tag">Local AI</li>
+                        <li class="tag">Reasoning models</li>
+                        <li class="tag">Coding with AI</li>
+                        <li class="tag">Automation</li>
+                        <li class="tag">Human-AI interaction</li>
+                        <li class="tag">Memory systems</li>
+                        <li class="tag">Generative interfaces</li>
+                        <li class="tag">Open-source AI</li>
+                        <li class="tag">Computational creativity</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== PHILOSOPHY ===================== -->
+        <section class="section philosophy" id="philosophy" aria-labelledby="philosophy-title">
+            <div class="philosophy-bg" aria-hidden="true"></div>
+            <div class="container">
+                <p class="eyebrow eyebrow-dark" data-reveal>Philosophy</p>
+                <h2 class="display-sm" id="philosophy-title" data-reveal>The philosophy</h2>
+
+                <blockquote class="philosophy-quote" data-reveal>
+                    &ldquo;I don&rsquo;t need to know whether something is possible before asking
+                    how to build it.&rdquo;
+                </blockquote>
+
+                <ol class="process">
+                    <li class="process-step" data-reveal>
+                        <span class="process-num">01</span>
+                        <h3>Ask</h3>
+                        <p>Question assumptions.</p>
+                    </li>
+                    <li class="process-step" data-reveal>
+                        <span class="process-num">02</span>
+                        <h3>Build</h3>
+                        <p>Turn ideas into experiments.</p>
+                    </li>
+                    <li class="process-step" data-reveal>
+                        <span class="process-num">03</span>
+                        <h3>Break</h3>
+                        <p>Failures reveal how systems actually work.</p>
+                    </li>
+                    <li class="process-step" data-reveal>
+                        <span class="process-num">04</span>
+                        <h3>Learn</h3>
+                        <p>Keep what worked. Understand what didn&rsquo;t.</p>
+                    </li>
+                    <li class="process-step" data-reveal>
+                        <span class="process-num">05</span>
+                        <h3>Repeat</h3>
+                        <p>The process never really ends.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- ===================== BEYOND AI ===================== -->
+        <section class="section beyond" id="beyond" aria-labelledby="beyond-title">
+            <div class="container">
+                <h2 class="display" id="beyond-title" data-reveal>AI is the subject.<br>Curiosity is the constant.</h2>
+                <p class="section-subtitle" data-reveal>
+                    The same impulse shows up everywhere: taking things apart, noticing patterns,
+                    and wanting to understand them.
+                </p>
+
+                <ul class="interest-list" data-reveal>
+                    <li>Mathematics</li>
+                    <li>Visual creativity</li>
+                    <li>Photography</li>
+                    <li>Design</li>
+                    <li>Technology</li>
+                    <li>Systems</li>
+                    <li>Experimentation</li>
+                    <li>Science</li>
+                    <li>Learning</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ===================== FINAL CTA / CONTACT ===================== -->
+        <section class="section cta" id="contact" aria-labelledby="cta-title">
+            <div class="cta-glow" aria-hidden="true"></div>
+            <div class="container narrow center">
+                <h2 class="display" id="cta-title" data-reveal>The experiment continues.</h2>
+                <p class="cta-lines" data-reveal>
+                    There is still a lot to learn.<br>
+                    A lot to build.<br>
+                    A lot to break.<br>
+                    And probably even more questions to ask.
+                </p>
+                <div class="cta-signature" data-reveal>
+                    <span class="cta-name">KhronosAion</span>
+                    <span class="cta-status">Still exploring.</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-brand-block">
+                <p class="footer-brand">KhronosAion</p>
+                <p class="footer-tagline">An independent exploration of AI, technology, and ideas.</p>
+            </div>
+
+            <!-- Only real links belong here. GitHub is ready but commented out:
+                 add your actual profile URL and uncomment the line.
+                 <ul class="footer-links">
+                     <li><a href="https://github.com/your-profile" rel="noopener">GitHub</a></li>
+                 </ul>
+            -->
+            <ul class="footer-links">
+                <li><a href="#lab">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 KhronosAion</p>
+        </div>
+    </footer>
+
+    <!-- ===================== ADMIN & PROJECT MODALS ===================== -->
+    
+    <!-- Auth / Google Login Modal -->
+    <div class="modal-backdrop" id="auth-modal" hidden>
+        <div class="modal-card" role="dialog" aria-labelledby="auth-modal-title" aria-modal="true">
+            <button class="modal-close" id="auth-modal-close" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <span class="eyebrow">Admin Access</span>
+                <h3 id="auth-modal-title" class="modal-title">Admin Sign In</h3>
+                <p class="modal-desc">Sign in with your authorized Google Account to manage projects and site links.</p>
+            </div>
+            <div class="modal-body">
+                <!-- Google Sign-In button render container -->
+                <div class="google-btn-wrapper" id="google-btn-container"></div>
+                <div id="auth-error" class="modal-alert modal-alert-error" hidden></div>
+                <div id="auth-notice" class="modal-notice">
+                    <p>Only authorized Google email addresses can edit and add projects.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Editor Modal (Add / Edit) -->
+    <div class="modal-backdrop" id="project-modal" hidden>
+        <div class="modal-card modal-card-lg" role="dialog" aria-labelledby="project-modal-title" aria-modal="true">
+            <button class="modal-close" id="project-modal-close" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <span class="eyebrow" id="project-modal-eyebrow">Project Management</span>
+                <h3 id="project-modal-title" class="modal-title">Edit Project</h3>
+            </div>
+            <form id="project-form" class="modal-form">
+                <input type="hidden" id="project-edit-index" value="-1">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="project-title" class="form-label">Project Name *</label>
+                        <input type="text" id="project-title" class="form-input" placeholder="e.g. KAT-Coder CLI" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="project-category" class="form-label">Category</label>
+                        <input type="text" id="project-category" class="form-input" placeholder="e.g. Artificial Intelligence, Local AI">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="project-status" class="form-label">Status</label>
+                        <select id="project-status" class="form-input form-select">
+                            <option value="In progress">In progress</option>
+                            <option value="Experiment">Experiment</option>
+                            <option value="Exploring">Exploring</option>
+                            <option value="Idea">Idea</option>
+                            <option value="Early stage">Early stage</option>
+                            <option value="Live">Live</option>
+                            <option value="Paused">Paused</option>
+                            <option value="Archived">Archived</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="project-accent" class="form-label">Accent Color (optional)</label>
+                        <input type="text" id="project-accent" class="form-input" placeholder="#4a7dff, #8b5cf6, #10b981...">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="project-description" class="form-label">Description *</label>
+                    <textarea id="project-description" class="form-input form-textarea" rows="3" placeholder="Short description of what this project does, tech stack, or lessons learned..." required></textarea>
+                </div>
+
+                <div class="form-section-title">
+                    <span>Project Links (GitHub, Vercel, Live Demo, Docs, etc.)</span>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="project-github" class="form-label">GitHub Repository URL</label>
+                        <input type="url" id="project-github" class="form-input" placeholder="https://github.com/username/repo">
+                    </div>
+                    <div class="form-group">
+                        <label for="project-vercel" class="form-label">Vercel / Live Deployment URL</label>
+                        <input type="url" id="project-vercel" class="form-input" placeholder="https://your-project.vercel.app">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="project-custom-title" class="form-label">Other Link Title (optional)</label>
+                        <input type="text" id="project-custom-title" class="form-input" placeholder="e.g. HuggingFace, Docs, Paper">
+                    </div>
+                    <div class="form-group">
+                        <label for="project-custom-url" class="form-label">Other Link URL</label>
+                        <input type="url" id="project-custom-url" class="form-input" placeholder="https://...">
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="project-cancel-btn">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="project-delete-btn" hidden>Delete Project</button>
+                    <button type="submit" class="btn btn-primary" id="project-save-btn">Save Project</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Settings Modal (Google Client ID & Allowed Emails config) -->
+    <div class="modal-backdrop" id="admin-settings-modal" hidden>
+        <div class="modal-card" role="dialog" aria-labelledby="admin-settings-title" aria-modal="true">
+            <button class="modal-close" id="admin-settings-close" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <span class="eyebrow">Configuration</span>
+                <h3 id="admin-settings-title" class="modal-title">Admin & Google Auth Settings</h3>
+                <p class="modal-desc">Configure your Google OAuth Client ID and authorized administrator emails.</p>
+            </div>
+            <form id="admin-settings-form" class="modal-form">
+                <div class="form-group">
+                    <label for="cfg-google-client-id" class="form-label">Google OAuth Client ID</label>
+                    <input type="text" id="cfg-google-client-id" class="form-input" placeholder="your-client-id.apps.googleusercontent.com">
+                    <span class="form-help">Create this in Google Cloud Console &rarr; APIs &amp; Services &rarr; Credentials &rarr; OAuth 2.0 Client IDs.</span>
+                </div>
+                <div class="form-group">
+                    <label for="cfg-allowed-emails" class="form-label">Authorized Admin Emails (comma separated)</label>
+                    <input type="text" id="cfg-allowed-emails" class="form-input" placeholder="you@gmail.com, admin@example.com">
+                    <span class="form-help">Only these Google accounts will be permitted to access admin features.</span>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="admin-settings-cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Configuration</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
