@@ -8,7 +8,7 @@
 
 const DEFAULT_CONFIG = {
     // Google OAuth Client ID
-    googleClientId: "",
+    googleClientId: "107414707667-rrj5rkoumorvfr0njftdu8vpfgf5g7ll.apps.googleusercontent.com",
     // Authorized emails permitted for admin management (case-insensitive)
     allowedEmails: [],
 
