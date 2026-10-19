@@ -13,14 +13,22 @@
          · Colors, spacing, typography live in style.css (:root).
          · Full instructions: README.md
          ============================================================ -->
-    <title>KhronosAion — Exploring intelligence, one experiment at a time.</title>
+    <title>KhronosAion — AI Exploration &amp; Software Portfolio</title>
     <meta name="description" content="KhronosAion is an independent exploration of artificial intelligence, software, and ideas. Self-directed learning, recorded honestly.">
-    <meta name="theme-color" content="#FAFAF8">
+    <meta name="theme-color" content="#FAFAF8" id="meta-theme-color">
+    <link rel="canonical" href="https://xiaon67.github.io/portfolio/">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="KhronosAion">
-    <meta property="og:description" content="Exploring intelligence, one experiment at a time.">
+    <meta property="og:title" content="KhronosAion — AI Exploration &amp; Software Portfolio">
+    <meta property="og:description" content="Exploring intelligence, autonomous agents, and software one experiment at a time.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://xiaon67.github.io/portfolio/">
+    <meta property="og:site_name" content="KhronosAion">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="KhronosAion — AI Exploration &amp; Software Portfolio">
+    <meta name="twitter:description" content="Exploring intelligence, autonomous agents, and software one experiment at a time.">
 
     <!-- Favicon (inline SVG, no extra request) -->
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23171717'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%23FAFAF8' stroke-width='1.8'/%3E%3Ccircle cx='16' cy='16' r='2.2' fill='%23FAFAF8'/%3E%3C/svg%3E">
@@ -53,13 +61,19 @@
                 <li><a class="nav-link" href="#lab">Projects</a></li>
                 <li><a class="nav-link" href="#philosophy">Philosophy</a></li>
                 <li><a class="nav-link" href="#contact">Contact</a></li>
-                <li><button class="admin-nav-btn" id="admin-auth-btn" aria-label="Admin Access">Admin Login</button></li>
+                <li><a class="nav-link" href="https://github.com/Xiaon67" target="_blank" rel="noopener noreferrer">GitHub ↗</a></li>
             </ul>
 
-            <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
-                <span class="nav-toggle-bar"></span>
-                <span class="nav-toggle-bar"></span>
-            </button>
+            <div class="nav-actions">
+                <button type="button" class="theme-toggle-btn" aria-label="Toggle dark and light theme" title="Toggle theme">
+                    <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
+                <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+                    <span class="nav-toggle-bar"></span>
+                    <span class="nav-toggle-bar"></span>
+                </button>
+            </div>
         </nav>
     </header>
 
@@ -72,7 +86,7 @@
                 <li><a class="mobile-link" href="#lab">Projects</a></li>
                 <li><a class="mobile-link" href="#philosophy">Philosophy</a></li>
                 <li><a class="mobile-link" href="#contact">Contact</a></li>
-                <li><button class="mobile-link admin-mobile-link" id="admin-auth-btn-mobile">Admin Login</button></li>
+                <li><a class="mobile-link" href="https://github.com/Xiaon67" target="_blank" rel="noopener noreferrer">GitHub Profile ↗</a></li>
             </ul>
         </nav>
     </div>
@@ -279,6 +293,8 @@
                 <h2 class="display" id="lab-title" data-reveal>The Lab</h2>
                 <p class="section-subtitle" data-reveal>Ideas are more interesting when they become experiments.</p>
 
+                <div class="lab-filters" id="lab-filters" data-reveal></div>
+
                 <div class="lab-grid" id="lab-grid" data-reveal-grid>
                     <noscript>
                         <p class="noscript-note">Enable JavaScript to see current experiments, or view the page source to edit them.</p>
@@ -422,6 +438,19 @@
                     A lot to break.<br>
                     And probably even more questions to ask.
                 </p>
+
+                <div class="cta-actions" data-reveal>
+                    <a class="btn btn-primary" href="mailto:khronosaion@gmail.com">
+                        <span>Send an Email</span>
+                    </a>
+                    <button type="button" class="btn btn-secondary" id="copy-email-btn" data-email="khronosaion@gmail.com" title="Copy email address">
+                        <span>Copy Email</span>
+                    </button>
+                    <a class="btn btn-secondary" href="https://github.com/Xiaon67" target="_blank" rel="noopener noreferrer">
+                        <span>GitHub Profile ↗</span>
+                    </a>
+                </div>
+
                 <div class="cta-signature" data-reveal>
                     <span class="cta-name">KhronosAion</span>
                     <span class="cta-status">Still exploring.</span>
@@ -438,19 +467,15 @@
                 <p class="footer-tagline">An independent exploration of AI, technology, and ideas.</p>
             </div>
 
-            <!-- Only real links belong here. GitHub is ready but commented out:
-                 add your actual profile URL and uncomment the line.
-                 <ul class="footer-links">
-                     <li><a href="https://github.com/your-profile" rel="noopener">GitHub</a></li>
-                 </ul>
-            -->
             <ul class="footer-links">
+                <li><a href="https://github.com/Xiaon67" target="_blank" rel="noopener noreferrer">GitHub</a></li>
                 <li><a href="#lab">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li><button type="button" class="footer-admin-link" id="footer-admin-link" title="Admin management (Ctrl+Shift+A)">Admin</button></li>
             </ul>
         </div>
         <div class="container footer-bottom">
-            <p>&copy; 2026 KhronosAion</p>
+            <p>&copy; 2026 KhronosAion. Self-directed learning &amp; open experiments.</p>
         </div>
     </footer>
 
@@ -578,6 +603,15 @@
                     <input type="text" id="cfg-allowed-emails" class="form-input" placeholder="you@gmail.com, admin@example.com">
                     <span class="form-help">Only these Google accounts will be permitted to access admin features.</span>
                 </div>
+                <div class="form-section-title">
+                    <span>Export Project Data for Git Deployment</span>
+                </div>
+                <div class="form-group">
+                    <p class="form-help">Since GitHub Pages is a static site without a backend database, edits saved in your browser only affect this device until committed. Use the button below to copy the updated code, then paste it into <code>script.js</code>.</p>
+                    <button type="button" class="btn btn-sm btn-secondary" id="export-config-btn" style="width: fit-content; margin-top: 6px;">📋 Copy Projects Code for script.js</button>
+                    <textarea id="export-config-text" class="admin-export-textarea" hidden readonly></textarea>
+                </div>
+
                 <div class="modal-actions">
                     <button type="button" class="btn btn-secondary" id="admin-settings-cancel">Cancel</button>
                     <button type="submit" class="btn btn-primary">Save Configuration</button>

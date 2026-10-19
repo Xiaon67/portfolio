@@ -15,44 +15,58 @@ const DEFAULT_CONFIG = {
     /*
      * Projects shown in "The Lab / Projects" section.
      * Each project can include title, description, category, status, accent,
-     * and direct links (github, vercel, customLink, etc.).
+     * tags, and direct links (github, vercel, customLink, etc.).
      */
     experiments: [
         {
+            title: "Disqus AI Chatbot",
+            description:
+                "Advanced AI chatbot for Disqus comment sections featuring personality engine, social graph modeling, and multi-provider LLM routing.",
+            category: "Artificial Intelligence",
+            status: "Live",
+            accent: "#4a7dff",
+            tags: ["Python", "LLMs", "Disqus API", "Agent Architecture"],
+            github: "https://github.com/Xiaon67/disqus-ai-chatbot",
+        },
+        {
             title: "KAT-Coder CLI",
             description:
-                "Local AI coding agent and developer workflow engine running entirely on private hardware.",
+                "Self-hosted AI coding assistant and developer workflow engine running entirely on private hardware with zero telemetry.",
             category: "Local AI",
             status: "In progress",
-            accent: "#4a7dff",
-            github: "https://github.com",
-            vercel: "https://vercel.com",
+            accent: "#8b5cf6",
+            tags: ["Local Models", "CLI", "Automation", "Developer Tools"],
+            github: "https://github.com/Xiaon67",
+        },
+        {
+            title: "Interactive Web Tools Suite",
+            description:
+                "Fast, dependency-free utility web application suite designed for developer productivity, format conversions, and text transformations.",
+            category: "Web Systems",
+            status: "Live",
+            accent: "#10b981",
+            tags: ["JavaScript", "HTML/CSS", "Productivity", "Web"],
+            github: "https://github.com/Xiaon67/tools-site",
         },
         {
             title: "Autonomous Agent Orchestrator",
             description:
-                "Exploring hierarchical task decomposition and long-horizon multi-step reasoning.",
+                "Exploring hierarchical task decomposition, dynamic tool dispatch, and multi-step reasoning systems.",
             category: "Artificial Intelligence",
             status: "Experiment",
-            accent: "#8b5cf6",
-            github: "https://github.com",
-        },
-        {
-            title: "Generative Interface Playground",
-            description:
-                "Dynamically generating reactive UI components based on real-time agent output.",
-            category: "Creative Coding",
-            status: "Exploring",
-            accent: "#10b981",
-            vercel: "https://vercel.com",
-        },
-        {
-            title: "Vector Memory & Retrieval Index",
-            description:
-                "Lightweight embedding store and hybrid search pipeline for personalized context recall.",
-            category: "Research",
-            status: "Early stage",
             accent: "#f59e0b",
+            tags: ["Multi-Agent", "Reasoning", "Planning"],
+            github: "https://github.com/Xiaon67",
+        },
+        {
+            title: "Vector Memory & Context Retrieval",
+            description:
+                "Lightweight embedding store and hybrid search pipeline for personalized agent context recall and associative memory.",
+            category: "Research",
+            status: "Exploring",
+            accent: "#ec4899",
+            tags: ["Embeddings", "Hybrid Search", "Vector Store"],
+            github: "https://github.com/Xiaon67",
         },
     ],
 
@@ -69,10 +83,11 @@ const DEFAULT_CONFIG = {
 };
 
 const STORAGE_KEYS = {
-    PROJECTS: "khronosaion_projects_v2",
+    PROJECTS: "khronosaion_projects_v3",
     AUTH_USER: "khronosaion_auth_user",
     GOOGLE_CLIENT_ID: "khronosaion_google_client_id",
     ALLOWED_EMAILS: "khronosaion_allowed_emails",
+    THEME: "khronosaion_theme",
 };
 
 // Initialize active state
@@ -145,6 +160,34 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 
 const $ = (selector, scope = document) => scope.querySelector(selector);
 const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
+
+// Theme Management
+function initTheme() {
+    const saved = localStorage.getItem(STORAGE_KEYS.THEME);
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const currentTheme = saved || (prefersDark ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", currentTheme);
+    updateThemeColorMeta(currentTheme);
+
+    const toggleBtns = $$(".theme-toggle-btn");
+    toggleBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const active = document.documentElement.getAttribute("data-theme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+            const next = active === "dark" ? "light" : "dark";
+            document.documentElement.setAttribute("data-theme", next);
+            localStorage.setItem(STORAGE_KEYS.THEME, next);
+            updateThemeColorMeta(next);
+        });
+    });
+}
+
+function updateThemeColorMeta(theme) {
+    const meta = $("#meta-theme-color");
+    if (meta) {
+        meta.setAttribute("content", theme === "dark" ? "#0d0f12" : "#fafaf8");
+    }
+}
+initTheme();
 
 function escapeHTML(value) {
     if (!value) return "";
@@ -288,22 +331,59 @@ const ICONS = {
     edit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>',
 };
 
+let activeLabFilter = "all";
+
+function renderLabFilters() {
+    const filterContainer = $("#lab-filters");
+    if (!filterContainer) return;
+
+    const rawCategories = currentProjects.map((p) => p.category).filter(Boolean);
+    const uniqueCategories = ["all", ...new Set(rawCategories)];
+
+    filterContainer.innerHTML = uniqueCategories
+        .map((cat) => {
+            const label = cat === "all" ? "All Projects" : cat;
+            const activeClass = cat.toLowerCase() === activeLabFilter.toLowerCase() ? " is-active" : "";
+            return `<button type="button" class="filter-pill${activeClass}" data-filter="${escapeHTML(cat)}">${escapeHTML(label)}</button>`;
+        })
+        .join("");
+
+    $$(".filter-pill", filterContainer).forEach((pill) => {
+        pill.addEventListener("click", () => {
+            activeLabFilter = pill.getAttribute("data-filter");
+            renderLabFilters();
+            renderLab();
+        });
+    });
+}
+
 function renderLab() {
+    renderLabFilters();
     const grid = $("#lab-grid");
     if (!grid) return;
 
-    if (!currentProjects.length) {
-        grid.innerHTML = '<p class="noscript-note">No projects added yet. Admin can add projects via the admin panel above.</p>';
+    const filteredProjects = activeLabFilter === "all"
+        ? currentProjects
+        : currentProjects.filter((p) => (p.category || "").toLowerCase() === activeLabFilter.toLowerCase());
+
+    if (!filteredProjects.length) {
+        grid.innerHTML = '<p class="noscript-note">No experiments found for this filter.</p>';
         return;
     }
 
     const isAdmin = Boolean(currentAdminUser);
 
-    grid.innerHTML = currentProjects
+    grid.innerHTML = filteredProjects
         .map((item, index) => {
             const statusColor =
                 DEFAULT_CONFIG.STATUS_COLORS[String(item.status).toLowerCase()] ?? "#9ca3af";
             const accent = item.accent ? ` style="--lab-accent: ${escapeHTML(item.accent)}"` : "";
+
+            // Tech stack tags
+            let tagsHtml = "";
+            if (Array.isArray(item.tags) && item.tags.length > 0) {
+                tagsHtml = `<div class="lab-tags">${item.tags.map((t) => `<span class="lab-tag">${escapeHTML(t)}</span>`).join("")}</div>`;
+            }
 
             // Badges & direct external links (GitHub, Vercel, Live, etc.)
             let linksHtml = "";
@@ -322,8 +402,9 @@ function renderLab() {
                 linksHtml += "</div>";
             }
 
+            const actualIndex = currentProjects.indexOf(item);
             const editButtonHtml = isAdmin
-                ? `<button class="lab-edit-btn" data-index="${index}" title="Edit this project" aria-label="Edit project">${ICONS.edit}</button>`
+                ? `<button class="lab-edit-btn" data-index="${actualIndex}" title="Edit this project" aria-label="Edit project">${ICONS.edit}</button>`
                 : "";
 
             return `
@@ -340,6 +421,7 @@ function renderLab() {
                         ${editButtonHtml}
                     </div>
                     <p class="lab-description">${escapeHTML(item.description)}</p>
+                    ${tagsHtml}
                     ${linksHtml}
                 </article>`;
         })
@@ -708,6 +790,60 @@ $$(".modal-backdrop").forEach((backdrop) => {
 
             closeModal(adminSettingsModal);
             alert("Configuration saved successfully.");
+        });
+    }
+
+    // Export Config Button in Admin Settings
+    const exportConfigBtn = $("#export-config-btn");
+    const exportConfigText = $("#export-config-text");
+    if (exportConfigBtn && exportConfigText) {
+        exportConfigBtn.addEventListener("click", () => {
+            const formatted = JSON.stringify(currentProjects, null, 4);
+            exportConfigText.value = `experiments: ${formatted},`;
+            exportConfigText.hidden = false;
+            exportConfigText.select();
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(exportConfigText.value).then(() => {
+                    alert("Config copied to clipboard! Paste it into script.js DEFAULT_CONFIG.experiments and commit to deploy.");
+                }).catch(() => {});
+            }
+        });
+    }
+
+    // Discreet Footer Admin Trigger & Keyboard Shortcut (Ctrl+Shift+A)
+    const footerAdminLink = $("#footer-admin-link");
+    if (footerAdminLink) {
+        footerAdminLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            openAuth();
+        });
+    }
+
+    document.addEventListener("keydown", (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === "A" || e.key === "a")) {
+            e.preventDefault();
+            openAuth();
+        }
+    });
+
+    // Copy Email Action in CTA
+    const copyEmailBtn = $("#copy-email-btn");
+    if (copyEmailBtn) {
+        copyEmailBtn.addEventListener("click", () => {
+            const email = copyEmailBtn.getAttribute("data-email") || "khronosaion@gmail.com";
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(email).then(() => {
+                    const originalHtml = copyEmailBtn.innerHTML;
+                    copyEmailBtn.innerHTML = `<span>Copied: ${escapeHTML(email)}</span>`;
+                    setTimeout(() => {
+                        copyEmailBtn.innerHTML = originalHtml;
+                    }, 2400);
+                }).catch(() => {
+                    window.location.href = `mailto:${email}`;
+                });
+            } else {
+                window.location.href = `mailto:${email}`;
+            }
         });
     }
 
