@@ -830,23 +830,25 @@ $$(".modal-backdrop").forEach((backdrop) => {
         }
     });
 
-    // Copy Email Action in CTA
-    const copyEmailBtn = $("#copy-email-btn");
-    if (copyEmailBtn) {
-        copyEmailBtn.addEventListener("click", () => {
-            const email = copyEmailBtn.getAttribute("data-email") || "khronosaion@gmail.com";
+    // Copy Discord Action in CTA
+    const copyDiscordBtn = $("#copy-discord-btn");
+    if (copyDiscordBtn) {
+        copyDiscordBtn.addEventListener("click", () => {
+            const discordTag = copyDiscordBtn.getAttribute("data-discord") || "@khronosaion";
+            SoundEngine.playClick();
             if (navigator.clipboard) {
-                navigator.clipboard.writeText(email).then(() => {
-                    const originalHtml = copyEmailBtn.innerHTML;
-                    copyEmailBtn.innerHTML = `<span>Copied: ${escapeHTML(email)}</span>`;
+                navigator.clipboard.writeText(discordTag).then(() => {
+                    const originalHtml = copyDiscordBtn.innerHTML;
+                    copyDiscordBtn.innerHTML = `<span style="color:#ffffff;">✓ Copied: ${escapeHTML(discordTag)}</span>`;
+                    SoundEngine.playChime();
                     setTimeout(() => {
-                        copyEmailBtn.innerHTML = originalHtml;
-                    }, 2400);
+                        copyDiscordBtn.innerHTML = originalHtml;
+                    }, 2600);
                 }).catch(() => {
-                    window.location.href = `mailto:${email}`;
+                    prompt("Copy Discord handle:", discordTag);
                 });
             } else {
-                window.location.href = `mailto:${email}`;
+                prompt("Copy Discord handle:", discordTag);
             }
         });
     }
@@ -1287,9 +1289,9 @@ $$(".modal-backdrop").forEach((backdrop) => {
 <div class="term-line"><span class="term-prompt">khronos@aion:~$</span> cat ~/.capabilities</div>
 <div class="term-line"><span class="term-output">AI: <span class="term-success">PyTorch, JAX, LLMs, RAG, Multi-Agent Systems, Agents</span></span></div>
 <div class="term-line"><span class="term-output">Engineering: <span class="term-highlight">Python, Rust, C++, Linux, Docker, Modern JS</span></span></div>`);
-        } else if (lower === "contact") {
+        } else if (lower === "contact" || lower === "discord") {
             termBody.insertAdjacentHTML("beforeend", `
-<div class="term-line"><span class="term-success">khronos@enthusiast.dev</span> &mdash; Open to research discussions and collaborations.</div>
+<div class="term-line"><span class="term-prompt">khronos@aion:~$</span> Discord: <span class="term-highlight">@khronosaion</span></div>
 <div class="term-line"><span class="term-output">GitHub: <a href="https://github.com/Xiaon67" target="_blank" style="color:#38bdf8;text-decoration:underline;">https://github.com/Xiaon67</a></span></div>`);
         }
         // 9. RAW JAVASCRIPT CODE RUNNER!
@@ -1508,10 +1510,10 @@ const SoundEngine = (function() {
         { title: "Theme: Reset to Default", group: "Themes", tag: "theme", icon: "sparkle", action: () => { window.resetTheme(); SoundEngine.playChime(); } },
 
         // Quick Actions
-        { title: "Copy Email (khronos@enthusiast.dev)", group: "Actions", tag: "clipboard", icon: "copy", action: () => {
-            navigator.clipboard.writeText("khronos@enthusiast.dev");
+        { title: "Copy Discord Tag (@khronosaion)", group: "Actions", tag: "clipboard", icon: "copy", action: () => {
+            navigator.clipboard.writeText("@khronosaion");
             SoundEngine.playChime();
-            alert("Copied khronos@enthusiast.dev to clipboard!");
+            alert("Copied Discord tag @khronosaion to clipboard!");
         }},
         { title: "Open GitHub Profile (Xiaon67)", group: "Actions", tag: "external", icon: "github", action: () => window.open("https://github.com/Xiaon67", "_blank") },
         { title: "Warp Constellations (5x Speed)", group: "Actions", tag: "particles", icon: "zap", action: () => { window.setSpeed(5); SoundEngine.playChime(); } },
