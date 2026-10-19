@@ -33,10 +33,10 @@
     <!-- Favicon (inline SVG, no extra request) -->
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23171717'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%23FAFAF8' stroke-width='1.8'/%3E%3Ccircle cx='16' cy='16' r='2.2' fill='%23FAFAF8'/%3E%3C/svg%3E">
 
-    <!-- Typography: Inter with system fallbacks -->
+    <!-- Typography: Cinzel, Space Grotesk, Fira Code & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
     <!-- Google Identity Services -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -45,7 +45,16 @@
 </head>
 <body>
 
+    <!-- Procedural Film Grain Overlay -->
+    <div class="bg-noise" aria-hidden="true"></div>
+
     <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Interactive Background Particles & Ambient Orbs -->
+    <canvas id="particles-canvas" aria-hidden="true"></canvas>
+    <div class="glow-orb glow-orb-1" aria-hidden="true"></div>
+    <div class="glow-orb glow-orb-2" aria-hidden="true"></div>
+    <div class="glow-orb glow-orb-3" aria-hidden="true"></div>
 
     <!-- Cursor glow (desktop only, added behaviorally by script.js) -->
     <div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
@@ -56,15 +65,24 @@
             <a class="nav-brand" href="#hero">KhronosAion</a>
 
             <ul class="nav-links" id="nav-links">
-                <li><a class="nav-link" href="#introduction">Introduction</a></li>
-                <li><a class="nav-link" href="#journey">Journey</a></li>
+                <li><a class="nav-link" href="#introduction">About</a></li>
+                <li><a class="nav-link" href="#skills">Skills</a></li>
                 <li><a class="nav-link" href="#lab">Projects</a></li>
-                <li><a class="nav-link" href="#philosophy">Philosophy</a></li>
+                <li><a class="nav-link" href="#research">Research</a></li>
+                <li><a class="nav-link" href="#journey">Journey</a></li>
                 <li><a class="nav-link" href="#contact">Contact</a></li>
                 <li><a class="nav-link" href="https://github.com/Xiaon67" target="_blank" rel="noopener noreferrer">GitHub ↗</a></li>
             </ul>
 
             <div class="nav-actions">
+                <button type="button" class="cmdk-trigger-btn" id="cmdk-trigger-btn" aria-label="Open Command Palette (Ctrl+K)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    <span>Search</span>
+                    <kbd class="cmdk-trigger-kbd">⌘K</kbd>
+                </button>
+                <button type="button" class="sound-toggle-btn" id="sound-toggle-btn" aria-label="Toggle sound effects" title="Toggle sound effects">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:17px;height:17px;"><path d="M11 5 6 9H2v6h4l5 4V5Z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                </button>
                 <button type="button" class="theme-toggle-btn" aria-label="Toggle dark and light theme" title="Toggle theme">
                     <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
                     <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
@@ -81,10 +99,11 @@
     <div class="mobile-menu" id="mobile-menu" hidden>
         <nav aria-label="Mobile navigation">
             <ul>
-                <li><a class="mobile-link" href="#introduction">Introduction</a></li>
-                <li><a class="mobile-link" href="#journey">Journey</a></li>
+                <li><a class="mobile-link" href="#introduction">About</a></li>
+                <li><a class="mobile-link" href="#skills">Skills</a></li>
                 <li><a class="mobile-link" href="#lab">Projects</a></li>
-                <li><a class="mobile-link" href="#philosophy">Philosophy</a></li>
+                <li><a class="mobile-link" href="#research">Research</a></li>
+                <li><a class="mobile-link" href="#journey">Journey</a></li>
                 <li><a class="mobile-link" href="#contact">Contact</a></li>
                 <li><a class="mobile-link" href="https://github.com/Xiaon67" target="_blank" rel="noopener noreferrer">GitHub Profile ↗</a></li>
             </ul>
@@ -114,7 +133,12 @@
 
             <div class="container hero-layout">
                 <div class="hero-copy">
-                    <h1 class="hero-title" id="hero-title">KhronosAion</h1>
+                    <div class="hero-status-pill" id="hero-status-pill" aria-label="Current focus status">
+                        <span class="pulse-indicator" aria-hidden="true"></span>
+                        <span id="hero-status-text">Active Exploration: Autonomous AI &amp; Reasoning Systems</span>
+                    </div>
+
+                    <h1 class="hero-title hero-brand" id="hero-title">Khronos Aion</h1>
                     <p class="hero-subtitle">Exploring intelligence, one experiment at a time.</p>
 
                     <p class="hero-lede">
@@ -130,8 +154,48 @@
                     </p>
 
                     <div class="hero-actions">
-                        <a class="btn btn-primary" href="#journey">Explore my journey</a>
-                        <a class="btn btn-secondary" href="#explore">What I&rsquo;m exploring</a>
+                        <a class="btn btn-primary" href="#lab">Explore Projects</a>
+                        <a class="btn btn-secondary" href="#skills">Technical Skills</a>
+                    </div>
+
+                    <!-- Interactive Hero Architecture Terminal & Code Runner -->
+                    <div class="hero-terminal" id="hero-terminal" role="region" aria-label="Interactive Architecture Console & Live Code Runner">
+                        <div class="term-topbar">
+                            <div class="term-buttons" aria-hidden="true">
+                                <span class="term-btn term-btn-red"></span>
+                                <span class="term-btn term-btn-yellow"></span>
+                                <span class="term-btn term-btn-green"></span>
+                            </div>
+                            <div class="term-tabs" role="tablist">
+                                <button class="term-tab is-active" data-tab="system.sh" role="tab">system.sh</button>
+                                <button class="term-tab" data-tab="live-runner.js" role="tab">live-runner.js</button>
+                                <button class="term-tab" data-tab="tools-site.jsx" role="tab">tools-site.jsx</button>
+                                <button class="term-tab" data-tab="portfolio.js" role="tab">portfolio.js</button>
+                            </div>
+                        </div>
+                        <div class="term-body" id="term-output" aria-live="polite">
+                            <div class="term-line"><span class="term-prompt">khronos@aion:~$</span> uname -a</div>
+                            <div class="term-line"><span class="term-output">Linux aion-box 6.8.9-custom-rt #1 SMP PREEMPT_DYNAMIC x86_64</span></div>
+                            <div class="term-line"><span class="term-prompt">khronos@aion:~$</span> ./check_status.sh</div>
+                            <div class="term-line"><span class="term-success">● STACK ONLINE</span> &mdash; Node.js, PyTorch 2.4, JAX, Rust toolchain</div>
+                            <div class="term-line"><span class="term-output">Interactive Mode: <span class="term-highlight">Live Code Runner Active</span> &bull; Type below or click pills!</span></div>
+                        </div>
+                        <!-- Live Code Runner Input Bar -->
+                        <form class="term-input-line" id="term-form" onsubmit="return false;">
+                            <span class="term-prompt">khronos@aion:~$</span>
+                            <input type="text" id="term-input" class="term-input" placeholder="Type command or JS (e.g. theme matrix, accent #ff0055)..." autocomplete="off" spellcheck="false" aria-label="Terminal Code Runner Input">
+                            <button type="submit" class="term-run-btn" id="term-run-btn">RUN ↵</button>
+                        </form>
+                        <div class="term-cmd-bar">
+                            <span style="font-size:0.7rem;color:#64748b;text-transform:uppercase;letter-spacing:0.05em;">Presets &amp; Code:</span>
+                            <button class="term-quick-pill" data-cmd="theme cyberpunk">⚡ cyberpunk</button>
+                            <button class="term-quick-pill" data-cmd="theme matrix">💚 matrix</button>
+                            <button class="term-quick-pill" data-cmd="theme synthwave">🌸 synthwave</button>
+                            <button class="term-quick-pill" data-cmd="accent #06b6d4">💎 cyan accent</button>
+                            <button class="term-quick-pill" data-cmd="speed 6">🚀 hyperdrive</button>
+                            <button class="term-quick-pill" data-cmd="theme reset">↺ reset</button>
+                            <button class="term-quick-pill" data-cmd="help">❓ help</button>
+                        </div>
                     </div>
                 </div>
 
@@ -186,6 +250,118 @@
                         This website is not meant to prove expertise.<br>
                         It is a record of exploration.
                     </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== TECHNICAL SKILLS ===================== -->
+        <section class="section skills" id="skills" aria-labelledby="skills-title">
+            <div class="container">
+                <p class="eyebrow" data-reveal>Capabilities &amp; Stack</p>
+                <h2 class="display" id="skills-title" data-reveal>Technical Skills</h2>
+                <p class="section-subtitle" data-reveal>Hands-on proficiency across modern AI, neural architectures, and software engineering.</p>
+
+                <div class="skills-grid">
+                    <article class="skill-card" style="--card-accent: var(--grad-ai);">
+                        <div class="skill-card-header">
+                            <div class="skill-icon-wrap" style="--icon-bg: rgba(99, 102, 241, 0.12); --icon-color: #6366f1;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><path d="M6.7 7.5 10.3 10.5M17.3 7.5 13.7 10.5M6.7 16.5 10.3 13.5M17.3 16.5 13.7 13.5"/></svg>
+                            </div>
+                            <h3>Deep Learning</h3>
+                        </div>
+                        <p>Architecting neural networks from mathematical fundamentals to production training pipelines.</p>
+                        <div class="skill-badge-row">
+                            <span class="skill-badge">PyTorch</span>
+                            <span class="skill-badge">TensorFlow</span>
+                            <span class="skill-badge">JAX</span>
+                            <span class="skill-badge">Transformers</span>
+                            <span class="skill-badge">CNNs &amp; RNNs</span>
+                        </div>
+                    </article>
+
+                    <article class="skill-card" style="--card-accent: var(--grad-tech);">
+                        <div class="skill-card-header">
+                            <div class="skill-icon-wrap" style="--icon-bg: rgba(59, 130, 246, 0.12); --icon-color: #3b82f6;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            </div>
+                            <h3>NLP &amp; LLMs</h3>
+                        </div>
+                        <p>Building generative AI workflows, agent loops, retrieval-augmented systems, and fine-tuning pipelines.</p>
+                        <div class="skill-badge-row">
+                            <span class="skill-badge">LLMs &amp; SLMs</span>
+                            <span class="skill-badge">RAG Systems</span>
+                            <span class="skill-badge">Vector DBs</span>
+                            <span class="skill-badge">Model Routing</span>
+                            <span class="skill-badge">Prompting</span>
+                        </div>
+                    </article>
+
+                    <article class="skill-card" style="--card-accent: var(--grad-emerald);">
+                        <div class="skill-card-header">
+                            <div class="skill-icon-wrap" style="--icon-bg: rgba(16, 185, 129, 0.12); --icon-color: #10b981;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                            </div>
+                            <h3>Systems Programming</h3>
+                        </div>
+                        <p>Low-level engineering focused on memory safety, Linux internals, and high-throughput backend services.</p>
+                        <div class="skill-badge-row">
+                            <span class="skill-badge">Python</span>
+                            <span class="skill-badge">Rust</span>
+                            <span class="skill-badge">C / C++</span>
+                            <span class="skill-badge">Linux Kernel</span>
+                            <span class="skill-badge">Async I/O</span>
+                        </div>
+                    </article>
+
+                    <article class="skill-card" style="--card-accent: var(--grad-amber);">
+                        <div class="skill-card-header">
+                            <div class="skill-icon-wrap" style="--icon-bg: rgba(245, 158, 11, 0.12); --icon-color: #f59e0b;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            </div>
+                            <h3>Computer Vision</h3>
+                        </div>
+                        <p>Visual feature representation, convolutional modeling, image classification, and latent diffusion systems.</p>
+                        <div class="skill-badge-row">
+                            <span class="skill-badge">Object Detection</span>
+                            <span class="skill-badge">Segmentation</span>
+                            <span class="skill-badge">OpenCV</span>
+                            <span class="skill-badge">Latent Diffusion</span>
+                        </div>
+                    </article>
+
+                    <article class="skill-card" style="--card-accent: var(--grad-ai);">
+                        <div class="skill-card-header">
+                            <div class="skill-icon-wrap" style="--icon-bg: rgba(168, 85, 247, 0.12); --icon-color: #a855f7;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 9.4 7.55 4.24a1.78 1.78 0 0 0-2.5 1.55v12.42a1.78 1.78 0 0 0 2.5 1.55L16.5 14.6a1.78 1.78 0 0 0 0-3.2z"/><path d="M21 5v14"/></svg>
+                            </div>
+                            <h3>MLOps &amp; Cloud</h3>
+                        </div>
+                        <p>Packaging, containerizing, and orchestrating models for low-latency inference on edge or cloud servers.</p>
+                        <div class="skill-badge-row">
+                            <span class="skill-badge">Docker</span>
+                            <span class="skill-badge">Kubernetes</span>
+                            <span class="skill-badge">CI / CD</span>
+                            <span class="skill-badge">Model Quantization</span>
+                            <span class="skill-badge">GitOps</span>
+                        </div>
+                    </article>
+
+                    <article class="skill-card" style="--card-accent: var(--grad-tech);">
+                        <div class="skill-card-header">
+                            <div class="skill-icon-wrap" style="--icon-bg: rgba(6, 182, 212, 0.12); --icon-color: #06b6d4;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                            </div>
+                            <h3>Modern Web Systems</h3>
+                        </div>
+                        <p>Building reactive, clean, ultra-fast web interfaces without framework bloat or unnecessary dependencies.</p>
+                        <div class="skill-badge-row">
+                            <span class="skill-badge">JavaScript (ESNext)</span>
+                            <span class="skill-badge">Modern CSS / Grid</span>
+                            <span class="skill-badge">HTML5</span>
+                            <span class="skill-badge">REST APIs</span>
+                            <span class="skill-badge">Node.js</span>
+                        </div>
+                    </article>
                 </div>
             </div>
         </section>
@@ -293,12 +469,83 @@
                 <h2 class="display" id="lab-title" data-reveal>The Lab</h2>
                 <p class="section-subtitle" data-reveal>Ideas are more interesting when they become experiments.</p>
 
-                <div class="lab-filters" id="lab-filters" data-reveal></div>
+                <div class="lab-filters" id="lab-filters"></div>
 
-                <div class="lab-grid" id="lab-grid" data-reveal-grid>
-                    <noscript>
-                        <p class="noscript-note">Enable JavaScript to see current experiments, or view the page source to edit them.</p>
-                    </noscript>
+                <div class="lab-grid bento-grid" id="lab-grid">
+                    <article class="lab-card bento-card spotlight-card bento-card-featured" style="--lab-accent: #10b981">
+                        <div class="lab-meta">
+                            <span class="lab-category">Web Systems</span>
+                            <span class="lab-status"><span class="lab-status-dot" style="--status-color: #10b981"></span> Live</span>
+                        </div>
+                        <div class="lab-card-header">
+                            <h3 class="lab-title">Interactive Web Tools Suite</h3>
+                        </div>
+                        <p class="lab-description">Fast, dependency-free utility web application suite designed for developer productivity, format conversions, code utilities, and text transformations.</p>
+                        <div class="lab-tags"><span class="lab-tag">React</span><span class="lab-tag">Vite</span><span class="lab-tag">Tailwind CSS</span><span class="lab-tag">JavaScript</span><span class="lab-tag">Developer Tools</span></div>
+                        <div class="lab-links"><a href="https://github.com/Xiaon67/tools-site" target="_blank" rel="noopener noreferrer" class="project-link-badge project-link-github" title="View Source Code on GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:13px;height:13px;"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg> GitHub</a></div>
+                    </article>
+                    <article class="lab-card bento-card spotlight-card bento-card-side" style="--lab-accent: #6366f1">
+                        <div class="lab-meta">
+                            <span class="lab-category">Creative Systems</span>
+                            <span class="lab-status"><span class="lab-status-dot" style="--status-color: #10b981"></span> Live</span>
+                        </div>
+                        <div class="lab-card-header">
+                            <h3 class="lab-title">Bespoke Portfolio &amp; Code Runner</h3>
+                        </div>
+                        <p class="lab-description">High-performance personal developer site featuring an in-browser live code runner, tactile Web Audio synthesizer, multi-theme engine, and command palette.</p>
+                        <div class="lab-tags"><span class="lab-tag">JavaScript</span><span class="lab-tag">HTML/CSS</span><span class="lab-tag">Web Audio API</span><span class="lab-tag">Interactive</span><span class="lab-tag">Bento Grid</span></div>
+                        <div class="lab-links">
+                            <a href="https://github.com/Xiaon67/portfolio" target="_blank" rel="noopener noreferrer" class="project-link-badge project-link-github" title="View Source Code on GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:13px;height:13px;"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg> GitHub</a>
+                            <a href="https://xiaon67.github.io/portfolio/" target="_blank" rel="noopener noreferrer" class="project-link-badge" title="Live Site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:13px;height:13px;"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Live Site</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== RESEARCH AREAS ===================== -->
+        <section class="section research" id="research" aria-labelledby="research-title">
+            <div class="container">
+                <p class="eyebrow" data-reveal>Exploration &amp; Inquiry</p>
+                <h2 class="display" id="research-title" data-reveal>Research Areas</h2>
+                <p class="section-subtitle" data-reveal>Active investigations into the frontier of artificial intelligence, reasoning, and efficiency.</p>
+
+                <div class="research-grid">
+                    <article class="research-card" style="--research-accent: var(--grad-ai);">
+                        <div class="research-meta">
+                            <span class="research-tag">Architecture</span>
+                            <span class="research-status-pill">Active Study</span>
+                        </div>
+                        <h3>Efficient Transformers &amp; Sparse Attention</h3>
+                        <p>Investigating sub-quadratic attention mechanisms, state-space models (Mamba/SSM), and sparse activation patterns to scale context windows efficiently on consumer hardware.</p>
+                        <div class="research-takeaway">
+                            <strong>Current Focus:</strong> Evaluating hybrid SSM-Transformer attention for low-latency inference.
+                        </div>
+                    </article>
+
+                    <article class="research-card" style="--research-accent: var(--grad-tech);">
+                        <div class="research-meta">
+                            <span class="research-tag" style="--tag-color: #3b82f6; --tag-bg: rgba(59, 130, 246, 0.1);">Autonomous Systems</span>
+                            <span class="research-status-pill">Experimenting</span>
+                        </div>
+                        <h3>Reinforcement Learning &amp; Decision Systems</h3>
+                        <p>Developing agent architectures capable of hierarchical planning, iterative self-correction, dynamic tool creation, and multi-turn policy optimization in open-ended environments.</p>
+                        <div class="research-takeaway">
+                            <strong>Current Focus:</strong> Multi-agent debate loops with persistent episodic memory indexing.
+                        </div>
+                    </article>
+
+                    <article class="research-card" style="--research-accent: var(--grad-emerald);">
+                        <div class="research-meta">
+                            <span class="research-tag" style="--tag-color: #10b981; --tag-bg: rgba(16, 185, 129, 0.1);">Representation</span>
+                            <span class="research-status-pill">Exploring</span>
+                        </div>
+                        <h3>Multi-Modal Representation &amp; Joint Embeddings</h3>
+                        <p>Bridging natural language, source code abstract syntax trees, and visual representations into shared geometric latent spaces for intuitive human-AI collaboration.</p>
+                        <div class="research-takeaway">
+                            <strong>Current Focus:</strong> Cross-modal AST-to-NL vector alignment for semantic code search.
+                        </div>
+                    </article>
                 </div>
             </div>
         </section>
@@ -515,7 +762,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="project-title" class="form-label">Project Name *</label>
-                        <input type="text" id="project-title" class="form-input" placeholder="e.g. KAT-Coder CLI" required>
+                        <input type="text" id="project-title" class="form-input" placeholder="e.g. tools-site" required>
                     </div>
                     <div class="form-group">
                         <label for="project-category" class="form-label">Category</label>
@@ -617,6 +864,22 @@
                     <button type="submit" class="btn btn-primary">Save Configuration</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- ===================== COMMAND PALETTE (CMD+K) ===================== -->
+    <div class="cmdk-overlay" id="cmdk-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Command Palette">
+        <div class="cmdk-modal">
+            <div class="cmdk-header">
+                <svg class="cmdk-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <input type="text" class="cmdk-search" id="cmdk-search" placeholder="Search navigation, switch themes, or run actions..." autocomplete="off" spellcheck="false">
+                <kbd class="cmdk-esc-kbd">ESC</kbd>
+            </div>
+            <div class="cmdk-body" id="cmdk-items-list"></div>
+            <div class="cmdk-footer">
+                <span>Use <kbd>↑</kbd> <kbd>↓</kbd> to navigate</span>
+                <span><kbd>↵</kbd> to select</span>
+            </div>
         </div>
     </div>
 
