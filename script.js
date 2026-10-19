@@ -1028,18 +1028,24 @@ $$(".modal-backdrop").forEach((backdrop) => {
         const nameText = "Khronos Aion";
         brandContainer.classList.add("hero-brand");
         
-        const lettersHtml = nameText
-            .split("")
-            .map((char, i) => {
-                if (char === " ") {
-                    return `<span class="brand-space" style="display:inline-block;width:0.35em;">&nbsp;</span>`;
-                }
-                const rot = ((i % 3) - 1) * 2;
-                return `<span class="brand-char" style="--char-rot: ${rot}; --i: ${i};">${escapeHTML(char)}</span>`;
+        const words = nameText.split(" ");
+        let globalIndex = 0;
+        const wordsHtml = words
+            .map((word) => {
+                const charsHtml = word
+                    .split("")
+                    .map((char) => {
+                        const rot = ((globalIndex % 3) - 1) * 2;
+                        const el = `<span class="brand-char" style="--char-rot: ${rot}; --i: ${globalIndex};">${escapeHTML(char)}</span>`;
+                        globalIndex++;
+                        return el;
+                    })
+                    .join("");
+                return `<span class="brand-word">${charsHtml}</span>`;
             })
-            .join("");
+            .join('<span class="brand-space">&nbsp;</span>');
 
-        brandContainer.innerHTML = `<div class="hero-brand-aura" aria-hidden="true"></div>${lettersHtml}`;
+        brandContainer.innerHTML = `<div class="hero-brand-aura" aria-hidden="true"></div>${wordsHtml}`;
 
         // Interactive wave on hover
         const chars = $$(".brand-char", brandContainer);
@@ -1254,6 +1260,7 @@ $$(".modal-backdrop").forEach((backdrop) => {
             if (f === "mono") document.body.style.fontFamily = "'Fira Code', monospace";
             else if (f === "serif" || f === "cinzel") document.body.style.fontFamily = "'Cinzel', serif";
             else if (f === "sans") document.body.style.fontFamily = "'Inter', sans-serif";
+            else if (f === "grotesk" || f === "space") document.body.style.fontFamily = "'Space Grotesk', sans-serif";
             termBody.insertAdjacentHTML("beforeend", `<div class="term-line"><span class="term-success">✓</span> Active typography set to <strong>${escapeHTML(f)}</strong></div>`);
         }
         // 9. GLOW
